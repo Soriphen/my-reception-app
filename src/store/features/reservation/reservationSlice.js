@@ -1,19 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
+"use client";
 
-const initialState = {
-  selectedSlot: null,
-};
+import { createSlice } from "@reduxjs/toolkit";
 
 const reservationSlice = createSlice({
   name: "reservation",
-  initialState,
+  initialState: [],
   reducers: {
-    setSelectedSlot: (state, action) => {
-      state.selectedSlot = action.payload;
+    addReservation: (state, action) => {
+      state.push(action.payload);
     },
   },
 });
 
-export const { setSelectedSlot } = reservationSlice.actions;
+export const { addReservation } = reservationSlice.actions;
 
 export default reservationSlice.reducer;
