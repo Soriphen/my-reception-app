@@ -7,11 +7,11 @@ export default function Frontpage() {
       <div className="relative py-3 sm:max-w-xl sm:mx-auto">
         <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-light-blue-500 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
         <div className="relative px-4 py-10 bg-gray-900 shadow-lg sm:rounded-3xl sm:p-20">
-          <h1 className="text-4xl font-bold text-white mb-8">
-            Let's GO AI LmA000
+          <h1 className="text-4xl font-bold text-white mb-8 text-center">
+            Welcome
           </h1>
-          <p className="text-xl text-gray-300 mb-6">
-            I basically coded this from my own mind.
+          <p className="text-xl text-gray-300 mb-6 text-center">
+            Please select the login type that you want to use.
           </p>
           <div className="flex flex-col items-center space-y-4">
             <Link
