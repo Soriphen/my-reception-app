@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "@/utils/firebase";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setStaff } from "@/store/features/auth/authSlice";
 
 const StaffLoginPage = () => {

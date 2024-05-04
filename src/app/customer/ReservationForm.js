@@ -1,21 +1,36 @@
 "use client";
-
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { addReservation } from "@/store/features/reservation/reservationSlice";
+import { addDoc, collection, getDocs } from "firebase/firestore";
+import { db } from "@/utils/firebase";
+import { useAppSelector } from "@/lib/hooks";
+import { useSearchParams } from "next/navigation";
 
-const ReservationForm = () => {
+const ReservationForm = ({ customer, studioId }) => {
   const { register, handleSubmit, reset } = useForm();
-  const dispatch = useAppDispatch();
-  const reservation = useAppSelector((state) => state.reservation);
+  const searchParams = useSearchParams();
+  const studioName = searchParams.get("studioName");
 
-  const onSubmit = (data) => {
-    dispatch(addReservation(data));
-    reset();
+  const onSubmit = async (data) => {
+    try {
+      const reservationData = {
+        ...data,
+        customerId: customer.uid,
+        studioId: studioId,
+        studioName: studioName || "", // added to include studio name
+        status: "pending",
+      };
+
+      console.log(reservationData);
+
+      // Save the reservation data to Firestore
+      await addDoc(collection(db, "reservations"), reservationData);
+
+      reset();
+    } catch (error) {
+      console.error("Error creating reservation:", error);
+    }
   };
-
-  console.log(reservation);
 
   return (
     <div className="container mx-auto py-8 bg-white dark:bg-gray-800">
@@ -83,7 +98,7 @@ const ReservationForm = () => {
           type="submit"
           className="px-6 py-2 bg-blue-500 text-white rounded"
         >
-          Make a Reservation
+          Reserve
         </button>
       </form>
     </div>
