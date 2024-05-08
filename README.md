@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# スタジオ予約システム
 
-## Getting Started
+スタジオ予約システムは、スタジオ予約の管理プロセスを合理化するウェブアプリケーションです。お客様が利用可能なスタジオを表示し、予約を行い、予約を管理するための使いやすいインターフェースを提供します。
 
-First, run the development server:
+## 機能
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **顧客認証**: お客様は、Googleアカウントを使用してシステムに簡単にログインでき、安全でパーソナライズされた体験を確保できます。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **リアルタイムの予約データ**: アプリケーションはFirebase Firestoreを活用して、予約データのリアルタイム同期を提供します。お客様は、スタジオの空き状況や自分の予約に関する最新情報を確認できます。
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- **自動予約の有効期限**: システムの効率を維持するために、予約はチェックインから1時間後に自動的に有効期限が切れます。これにより、スタジオが他のお客様にタイムリーに提供されるようになります。
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **今後の予約**: お客様は、今後24時間以内の予約を簡単に確認できます。この機能により、お客様は訪問を計画し、予約に関する情報を把握することができます。
 
-## Learn More
+- **スタジオ一覧**: アプリケーションは、利用可能なスタジオの包括的なリストを提供します。お客様はスタジオを閲覧し、詳細情報を確認し、予約したいスタジオを選択できます。
 
-To learn more about Next.js, take a look at the following resources:
+- **予約フォーム**: 予約フォームは、直感的でユーザーフレンドリーになるように設計されています。選択したスタジオに基づいてスタジオ名が自動的に入力されるため、予約プロセスが迅速かつ効率的になります。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **レスポンシブデザイン**: 顧客ページは、さまざまな画面サイズに対応し、最適化されるように設計されています。アプリケーションは、デスクトップ、タブレット、モバイルフォンなどのさまざまなデバイスに適応し、お客様にシームレスな体験を提供します。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **認証ガード**: セキュリティを強化し、不正アクセスを防ぐために、アプリケーションには認証ガードが実装されています。認証されていないユーザーは自動的にログインページにリダイレクトされ、認証された顧客のみが予約機能にアクセスできるようになります。
 
-## Deploy on Vercel
+## ライブデモ
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+以下のURLから、スタジオ予約システムの実際の動作をご覧ください:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[https://my-reception-app-soriphen-soriphens-projects.vercel.app/](https://my-reception-app-soriphen-soriphens-projects.vercel.app/)
+
+## 貢献
+
+スタジオ予約システムの機能向上にご協力ください。ご提案、バグレポート、機能リクエストがある場合は、[GitHubリポジトリ](https://github.com/your-username/studio-reservation-system)のissueを開いてください。
+
+## ライセンス
+
+このプロジェクトは[MITライセンス](LICENSE)の下でライセンスされています。
