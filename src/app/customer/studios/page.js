@@ -5,8 +5,10 @@ import { db } from "@/utils/firebase";
 import React, { useEffect } from "react";
 import { setStudios } from "@/store/features/studios/studiosSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import CustomerLogin from "../CustomerLogin";
+import AuthGuard from "@/utils/AuthGuard";
 
-const StudiosPage = () => {
+const StudiosLoggedIn = () => {
   const dispatch = useAppDispatch();
   const studios = useAppSelector((state) => state.studios);
 
@@ -25,9 +27,21 @@ const StudiosPage = () => {
   }, []);
 
   return (
-    <div>
+    <div className="min-h-screen bg-black">
       <StudioList studios={studios} />
     </div>
+  );
+};
+
+const StudiosPage = () => {
+  const customer = useAppSelector((state) => state.auth.customer);
+
+  return customer ? (
+    <AuthGuard>
+      <StudiosLoggedIn />
+    </AuthGuard>
+  ) : (
+    <CustomerLogin />
   );
 };
 

@@ -10,6 +10,7 @@ import {
 } from "redux-persist";
 import authReducer from "./features/auth/authSlice";
 import studiosReducer from "./features/studios/studiosSlice";
+import reservationReducer from "./features/reservations/reservationsSlice";
 import storage from "redux-persist/lib/storage";
 import { persistStore } from "redux-persist";
 
@@ -17,11 +18,12 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  whitelist: ["auth"],
+  whitelist: ["auth", "reservations"],
 };
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  reservations: reservationReducer,
   studios: studiosReducer,
 });
 
