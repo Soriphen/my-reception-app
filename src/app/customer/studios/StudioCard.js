@@ -3,30 +3,23 @@ import Link from "next/link";
 
 const StudioCard = ({ studio }) => {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md">
-      <img
-        src={studio.image}
-        alt={studio.name}
-        className="w-full h-48 object-cover rounded-t-lg"
-      />
+    <Link
+      href={{
+        pathname: `/customer/studios/${studio.id}`,
+        query: { studioName: studio.name },
+      }}
+      className="block bg-gray-900 rounded-lg shadow-lg transition-all duration-300 hover:bg-gray-800 hover:shadow-xl"
+    >
       <div className="p-4">
-        <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-white">
-          {studio.name}
-        </h3>
-        <p className="text-gray-600 dark:text-gray-400 mb-4">
-          {studio.description}
-        </p>
-        <Link
-          href={{
-            pathname: `/customer/studios/${studio.id}`,
-            query: { studioName: studio.name },
-          }}
-          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
-        >
-          Book Now
-        </Link>
+        <img
+          src={studio.image}
+          alt={studio.name}
+          className="w-full h-48 object-cover rounded-lg mb-4"
+        />
+        <h3 className="text-xl font-bold mb-2 text-white">{studio.name}</h3>
+        <p className="text-gray-400">{studio.description}</p>
       </div>
-    </div>
+    </Link>
   );
 };
 

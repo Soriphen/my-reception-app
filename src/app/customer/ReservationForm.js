@@ -1,15 +1,17 @@
 "use client";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { db } from "@/utils/firebase";
-import { useAppSelector } from "@/lib/hooks";
+import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { useSearchParams } from "next/navigation";
+import { addReservation } from "@/store/features/reservations/reservationsSlice";
 
 const ReservationForm = ({ customer, studioId }) => {
   const { register, handleSubmit, reset } = useForm();
   const searchParams = useSearchParams();
   const studioName = searchParams.get("studioName");
+  const dispatch = useAppDispatch();
 
   const onSubmit = async (data) => {
     try {
@@ -17,14 +19,20 @@ const ReservationForm = ({ customer, studioId }) => {
         ...data,
         customerId: customer.uid,
         studioId: studioId,
-        studioName: studioName || "", // added to include studio name
+        studioName: studioName || "",
         status: "pending",
       };
 
       console.log(reservationData);
 
       // Save the reservation data to Firestore
-      await addDoc(collection(db, "reservations"), reservationData);
+      const reservationRef = await addDoc(
+        collection(db, "reservations"),
+        reservationData
+      );
+
+      // Dispatch the addReservation action to update the Redux store
+      dispatch(addReservation({ id: reservationRef.id, ...reservationData }));
 
       reset();
     } catch (error) {
@@ -33,73 +41,61 @@ const ReservationForm = ({ customer, studioId }) => {
   };
 
   return (
-    <div className="container mx-auto py-8 bg-white dark:bg-gray-800">
-      <h2 className="text-3xl font-bold mb-4 text-gray-800 dark:text-white">
-        Make a Reservation
-      </h2>
+    <div className="bg-gray-900 p-8 rounded-lg shadow-lg">
+      <h2 className="text-3xl font-bold mb-4 text-white">Make a Reservation</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
-          <label
-            htmlFor="name"
-            className="block mb-2 font-bold text-gray-800 dark:text-white"
-          >
+          <label htmlFor="name" className="block mb-2 font-bold text-white">
             Name
           </label>
           <input
             type="text"
             id="name"
             {...register("name", { required: true })}
-            className="w-full px-4 py-2 border border-gray-300 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
+            className="w-full px-4 py-2 border border-gray-300 rounded bg-gray-800 text-white"
           />
         </div>
         <div className="mb-4">
-          <label
-            htmlFor="email"
-            className="block mb-2 font-bold text-gray-800 dark:text-white"
-          >
+          <label htmlFor="email" className="block mb-2 font-bold text-white">
             Email
           </label>
           <input
             type="email"
             id="email"
             {...register("email", { required: true })}
-            className="w-full px-4 py-2 border border-gray-300 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
+            className="w-full px-4 py-2 border border-gray-300 rounded bg-gray-800 text-white"
           />
         </div>
         <div className="mb-4">
-          <label
-            htmlFor="date"
-            className="block mb-2 font-bold text-gray-800 dark:text-white"
-          >
+          <label htmlFor="date" className="block mb-2 font-bold text-white">
             Date
           </label>
           <input
             type="date"
             id="date"
             {...register("date", { required: true })}
-            className="w-full px-4 py-2 border border-gray-300 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
+            className="w-full px-4 py-2 border border-gray-300 rounded bg-gray-800 text-white"
           />
         </div>
         <div className="mb-4">
-          <label
-            htmlFor="time"
-            className="block mb-2 font-bold text-gray-800 dark:text-white"
-          >
+          <label htmlFor="time" className="block mb-2 font-bold text-white">
             Time
           </label>
           <input
             type="time"
             id="time"
             {...register("time", { required: true })}
-            className="w-full px-4 py-2 border border-gray-300 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
+            className="w-full px-4 py-2 border border-gray-300 rounded bg-gray-800 text-white"
           />
         </div>
-        <button
-          type="submit"
-          className="px-6 py-2 bg-blue-500 text-white rounded"
-        >
-          Reserve
-        </button>
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            className="w-full md:w-auto bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-md hover:from-purple-700 hover:to-blue-700 transition-all duration-300"
+          >
+            Reserve
+          </button>
+        </div>
       </form>
     </div>
   );
