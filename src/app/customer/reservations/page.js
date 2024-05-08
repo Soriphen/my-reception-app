@@ -7,7 +7,9 @@ import CustomerLogin from "../CustomerLogin";
 
 const ReservationsLoggedIn = () => {
   const [globalFilter, setGlobalFilter] = useState("");
-  const reservations = useAppSelector((state) => state.reservations);
+  const reservations = useAppSelector(
+    (state) => state.reservations.reservations
+  );
   console.log("Reservations from Redux:", reservations);
 
   const columns = [
