@@ -25,11 +25,3 @@
 以下のURLから、スタジオ予約システムの実際の動作をご覧ください:
 
 [https://my-reception-app-soriphen-soriphens-projects.vercel.app/](https://my-reception-app-soriphen-soriphens-projects.vercel.app/)
-
-## 貢献
-
-スタジオ予約システムの機能向上にご協力ください。ご提案、バグレポート、機能リクエストがある場合は、[GitHubリポジトリ](https://github.com/your-username/studio-reservation-system)のissueを開いてください。
-
-## ライセンス
-
-このプロジェクトは[MITライセンス](LICENSE)の下でライセンスされています。
