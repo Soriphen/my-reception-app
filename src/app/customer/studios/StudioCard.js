@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const StudioCard = ({ studio }) => {
   return (
@@ -11,9 +12,11 @@ const StudioCard = ({ studio }) => {
       className="block bg-gray-900 rounded-lg shadow-lg transition-all duration-300 hover:bg-gray-800 hover:shadow-xl"
     >
       <div className="p-4">
-        <img
+        <Image
           src={studio.image}
           alt={studio.name}
+          width={800}
+          height={600}
           className="w-full h-48 object-cover rounded-lg mb-4"
         />
         <h3 className="text-xl font-bold mb-2 text-white">{studio.name}</h3>

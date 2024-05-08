@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useAppSelector } from "@/lib/hooks";
 import DataTable from "@/components/ui/data-table";
 import AuthGuard from "@/utils/AuthGuard";
+import CustomerLogin from "../CustomerLogin";
 
 const ReservationsLoggedIn = () => {
   const [globalFilter, setGlobalFilter] = useState("");

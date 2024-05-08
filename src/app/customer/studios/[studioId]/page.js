@@ -2,6 +2,7 @@
 import React from "react";
 import { useAppSelector } from "@/lib/hooks";
 import ReservationForm from "@/app/customer/ReservationForm";
+import Image from "next/image";
 
 const StudioReservationPage = ({ params }) => {
   const customer = useAppSelector((state) => state.auth.customer);
@@ -26,9 +27,11 @@ const StudioReservationPage = ({ params }) => {
             </h2>
             <p className="text-gray-400 mb-4">{studio?.description}</p>
             {studio?.image && (
-              <img
+              <Image
                 src={studio.image}
                 alt={studio.name}
+                width={800}
+                height={600}
                 className="w-full h-64 object-cover rounded-lg"
               />
             )}
