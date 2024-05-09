@@ -24,4 +24,4 @@
 
 以下のURLから、スタジオ予約システムの実際の動作をご覧ください:
 
-[https://my-reception-app-soriphen-soriphens-projects.vercel.app/](https://my-reception-app-soriphen-soriphens-projects.vercel.app/)
+[https://my-reception-rmo4scq4g-soriphens-projects.vercel.app/](https://my-reception-rmo4scq4g-soriphens-projects.vercel.app/)
