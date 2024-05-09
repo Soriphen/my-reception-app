@@ -4,13 +4,13 @@ import { useAppSelector } from "@/lib/hooks";
 import DataTable from "@/components/ui/data-table";
 import AuthGuard from "@/utils/AuthGuard";
 import CustomerLogin from "../CustomerLogin";
+import { ROLE_CUSTOMER } from "@/constants/constants";
 
 const ReservationsLoggedIn = () => {
   const [globalFilter, setGlobalFilter] = useState("");
   const reservations = useAppSelector(
     (state) => state.reservations.reservations
   );
-  console.log("Reservations from Redux:", reservations);
 
   const columns = [
     {
@@ -68,9 +68,9 @@ const ReservationsLoggedIn = () => {
 };
 
 const ReservationsPage = () => {
-  const customer = useAppSelector((state) => state.auth.customer);
+  const userRole = useAppSelector((state) => state.auth.user.role);
 
-  return customer ? (
+  return userRole & ROLE_CUSTOMER ? (
     <AuthGuard>
       <ReservationsLoggedIn />
     </AuthGuard>

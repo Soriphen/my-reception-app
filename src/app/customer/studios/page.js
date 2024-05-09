@@ -7,6 +7,7 @@ import { setStudios } from "@/store/features/studios/studiosSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import CustomerLogin from "../CustomerLogin";
 import AuthGuard from "@/utils/AuthGuard";
+import { ROLE_CUSTOMER } from "@/constants/constants";
 
 const StudiosLoggedIn = () => {
   const dispatch = useAppDispatch();
@@ -34,9 +35,9 @@ const StudiosLoggedIn = () => {
 };
 
 const StudiosPage = () => {
-  const customer = useAppSelector((state) => state.auth.customer);
+  const userRole = useAppSelector((state) => state.auth.user.role);
 
-  return customer ? (
+  return userRole & ROLE_CUSTOMER ? (
     <AuthGuard>
       <StudiosLoggedIn />
     </AuthGuard>

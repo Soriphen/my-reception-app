@@ -3,19 +3,14 @@ import React from "react";
 import { useAppSelector } from "@/lib/hooks";
 import ReservationForm from "@/app/customer/ReservationForm";
 import Image from "next/image";
+import AuthGuard from "@/utils/AuthGuard";
+import CustomerLogin from "../../CustomerLogin";
+import { ROLE_CUSTOMER } from "@/constants/constants";
 
-const StudioReservationPage = ({ params }) => {
-  const customer = useAppSelector((state) => state.auth.customer);
+const StudioReservationLoggedIn = ({ studioId }) => {
+  const user = useAppSelector((state) => state.auth.user);
   const studios = useAppSelector((state) => state.studios);
-  const studioId = params.studioId;
   const studio = studios.find((studio) => studio.id === studioId);
-
-  if (!customer) {
-    // Redirect to login page if customer is not logged in
-    return (
-      <div className="text-white">Please log in to make a reservation.</div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center">
@@ -37,11 +32,24 @@ const StudioReservationPage = ({ params }) => {
             )}
           </div>
           <div className="bg-gray-900 p-8 rounded-lg shadow-lg">
-            <ReservationForm customer={customer} studioId={studioId} />
+            <ReservationForm customer={user} studioId={studioId} />
           </div>
         </div>
       </div>
     </div>
+  );
+};
+
+const StudioReservationPage = ({ params }) => {
+  const userRole = useAppSelector((state) => state.auth.user.role);
+  const studioId = params.studioId;
+
+  return userRole & ROLE_CUSTOMER ? (
+    <AuthGuard>
+      <StudioReservationLoggedIn studioId={studioId} />
+    </AuthGuard>
+  ) : (
+    <CustomerLogin />
   );
 };
 

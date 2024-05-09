@@ -19,9 +19,10 @@ import {
   setUpcomingReservation,
 } from "@/store/features/reservations/reservationsSlice";
 import { useCollection } from "react-firebase-hooks/firestore";
+import { ROLE_CUSTOMER } from "@/constants/constants";
 
 const CustomerLoggedIn = () => {
-  const customer = useAppSelector((state) => state.auth.customer);
+  const user = useAppSelector((state) => state.auth.user);
   const reservations = useAppSelector(
     (state) => state.reservations.reservations
   );
@@ -31,10 +32,7 @@ const CustomerLoggedIn = () => {
   const dispatch = useAppDispatch();
 
   const [value, loading, error] = useCollection(
-    query(
-      collection(db, "reservations"),
-      where("customerId", "==", customer.uid)
-    )
+    query(collection(db, "reservations"), where("customerId", "==", user.uid))
   );
 
   useEffect(() => {
@@ -160,7 +158,7 @@ const CustomerLoggedIn = () => {
     <div className="min-h-screen bg-black flex items-center justify-center">
       <div className="bg-gray-900 p-8 rounded-lg shadow-lg w-full max-w-4xl mx-auto text-center">
         <h1 className="text-4xl font-bold text-white mb-6 break-words">
-          Welcome, {customer.email}
+          Welcome, {user.email}
         </h1>
         <div className="mb-8">
           {upcomingReservation ? (
@@ -212,9 +210,9 @@ const CustomerLoggedIn = () => {
 };
 
 const CustomerPage = () => {
-  const customer = useAppSelector((state) => state.auth.customer);
+  const userRole = useAppSelector((state) => state.auth.user.role);
 
-  return customer ? (
+  return userRole & ROLE_CUSTOMER ? (
     <AuthGuard>
       <CustomerLoggedIn />
     </AuthGuard>

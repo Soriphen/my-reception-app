@@ -8,9 +8,10 @@ import {
 } from "firebase/auth";
 import { auth, db } from "@/utils/firebase";
 import { useAppDispatch } from "@/lib/hooks";
-import { setCustomer } from "@/store/features/auth/authSlice";
+import { setUser } from "@/store/features/auth/authSlice";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { doc, setDoc } from "firebase/firestore";
+import { ROLE_CUSTOMER } from "@/constants/constants";
 
 const CustomerLogin = () => {
   const [email, setEmail] = useState("");
@@ -27,7 +28,9 @@ const CustomerLogin = () => {
       await setDoc(doc(db, "customers", user.uid), {
         email: user.email,
       });
-      dispatch(setCustomer({ uid: user.uid, email: user.email }));
+      dispatch(
+        setUser({ uid: user.uid, email: user.email, role: ROLE_CUSTOMER })
+      );
     } catch (error) {
       setError(error.message);
     }
@@ -42,7 +45,9 @@ const CustomerLogin = () => {
         password
       );
       const user = userCredential.user;
-      dispatch(setCustomer({ uid: user.uid, email: user.email }));
+      dispatch(
+        setUser({ uid: user.uid, email: user.email, role: ROLE_CUSTOMER })
+      );
     } catch (error) {
       setError(error.message);
     }
@@ -60,7 +65,9 @@ const CustomerLogin = () => {
       await setDoc(doc(db, "customers", user.uid), {
         email: user.email,
       });
-      dispatch(setCustomer({ uid: user.uid, email: user.email }));
+      dispatch(
+        setUser({ uid: user.uid, email: user.email, role: ROLE_CUSTOMER })
+      );
     } catch (error) {
       setError(error.message);
     }
