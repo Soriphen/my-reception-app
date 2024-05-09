@@ -3,8 +3,9 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "@/utils/firebase";
 import { useAppDispatch } from "@/lib/hooks";
-import { setStaff } from "@/store/features/auth/authSlice";
+import { setStaff, setUser } from "@/store/features/auth/authSlice";
 import { doc, getDoc } from "firebase/firestore";
+import { ROLE_STAFF } from "@/constants/constants";
 
 const StaffLogin = () => {
   const [email, setEmail] = useState("");
@@ -24,9 +25,10 @@ const StaffLogin = () => {
       const staffDoc = await getDoc(doc(db, "staff", staffUser.uid));
       if (staffDoc.exists()) {
         dispatch(
-          setStaff({
+          setUser({
             uid: staffUser.uid,
             email: staffUser.email,
+            role: ROLE_STAFF,
           })
         );
       } else {

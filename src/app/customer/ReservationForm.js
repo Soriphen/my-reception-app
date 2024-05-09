@@ -23,8 +23,6 @@ const ReservationForm = ({ customer, studioId }) => {
         status: "pending",
       };
 
-      console.log(reservationData);
-
       // Save the reservation data to Firestore
       const reservationRef = await addDoc(
         collection(db, "reservations"),
